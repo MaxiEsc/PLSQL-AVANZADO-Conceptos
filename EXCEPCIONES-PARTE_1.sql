@@ -8,22 +8,26 @@ SET SERVEROUTPUT ON;
 DECLARE 
     emple employees%ROWTYPE;
 BEGIN
-    SELECT * INTO emple FROM employees
-    WHERE employee_id = 1000;
-    
-    DBMS_OUTPUT.PUT_LINE(emple.first_name);
+--    SELECT * INTO emple FROM employees
+--    WHERE employee_id > 1;
+----    WHERE employee_id = 1000; -> No hay datos
+--    
+--      DBMS_OUTPUT.PUT_LINE(10/0);
+--    DBMS_OUTPUT.PUT_LINE(emple.first_name);
+     INSERT INTO departments VALUES(10, 'prueba',200,2000);
 --BLoque de excepciones     
 EXCEPTION
 --Ejemplo puede llevar una funcion, procedimiento, etc.
     WHEN no_data_found THEN
         DBMS_OUTPUT.PUT_LINE('ERROR: EMPLEADO NO EXISTE');    
     WHEN TOO_MANY_ROWS THEN
-        DBMS_OUTPUT.PUT_LINE('ERROR: DEMASIADAS FILAS');   
+        DBMS_OUTPUT.PUT_LINE('ERROR: DEMASIADOS EMPLEADOS');   
     WHEN ZERO_DIVIDE  THEN
         DBMS_OUTPUT.PUT_LINE('ERROR: DIVISION POR CERO NO EXISTE');   
-   WHEN DUP_VAL_ON_INDEX THEN
+    WHEN DUP_VAL_ON_INDEX THEN
         DBMS_OUTPUT.PUT_LINE('ERROR: VALOR DUPLICADO EN LA LLAVE FORANEA');      
     WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: NO DEFINIDO, COMUNICARSE CON SOPORTE');   
         NULL;
 END;
 
