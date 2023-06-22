@@ -5,8 +5,8 @@
 --SELECT * FROM user_types;
 --Para ver el codigo fuente
 --SELECT * FROM user_source;
-SELECT * FROM user_source; WHERE name='PRODUCTO';
-SELECT text FROM user_source; WHERE name='PRODUCTO';
+SELECT * FROM user_source WHERE name='PRODUCTO';
+SELECT text FROM user_source WHERE name='PRODUCTO';
 --SET SERVEROUTPUT ON;
 --DECLARE
 --    prod3 producto;
