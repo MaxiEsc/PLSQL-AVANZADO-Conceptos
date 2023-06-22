@@ -1,7 +1,38 @@
---Sobrecarga de operadoers de objetos
---Bueno como en la programacion orientada objetos un metodo cuyo nombre sea igual con  omportamientos distinto en este caso ejemplo sera con calcular un descuento de impuesto.
--- Habilitar la consola de la base de datos
---HEADER
+--Herencia
+--Clausula UNDER : Permite una solucion para la facilidad en el concepto de herencia de un objeto a otros.
+--EL objeto debe cumplir con:
+--No ser de tipo FINAL objeto que no puede ser heredable bajo ninguna condicion.
+--NOT FINAL sobre la clase padre
+--Esta clausula es importante añadirla en los objetos/clase de oracle para poder heredarlos
+--Interezante el objeto puede crearse con acarreos de errores, lo que se significa que:
+--Por mas que se soluciones el problema el mismo seguira con el error por o que hay que recrearlo de vuelta
+--Creacion de clase hija o calificada para herehcia
+CREATE OR REPLACE TYPE comestibles UNDER producto(
+--Atributos
+caducidad date,
+--Metodos
+MEMBER FUNCTION ver_caducidad RETURN VARCHAR2
+);
+----Codigo de body
+CREATE OR REPLACE TYPE BODY comestibles AS 
+MEMBER FUNCTION ver_caducidad RETURN VARCHAR2 AS 
+    BEGIN
+        RETURN caducidad;
+    END;
+END;
+--Habilitar la consola de la base de datos
+SET SERVEROUTPUT ON;
+DECLARE
+    valor1 comestibles;
+BEGIN
+    valor1 := comestibles(500, 'Papas',200,SYSDATE()+ 1);
+    DBMS_OUTPUT.PUT_LINE('Precio: ' || valor1.ver_producto());
+    DBMS_OUTPUT.PUT_LINE('Precio sin impuesto: ' || valor1.ver_precio(20));
+    DBMS_OUTPUT.PUT_LINE('caducidad: ' || valor1.ver_caducidad());
+END;
+--
+DROP type comestibles;
+DROP TYPE producto;
 --
 --create or replace TYPE producto AS OBJECT(
 --
@@ -18,10 +49,9 @@
 --STATIC PROCEDURE auditoria,
 --
 ----Constructor
---CONSTRUCTOR FUNCTION producto(n1 VARCHAR2) RETURN SELF AS RESULT
---);
---
---BODY
+--CONSTRUCTOR FUNCTION producto(n1 VARCHAR2) RETURN SELF AS RESULT)
+--NOT FINAL
+--;
 --
 --create or replace TYPE BODY producto AS 
 --    MEMBER FUNCTION ver_producto RETURN VARCHAR2 AS 
@@ -59,15 +89,3 @@
 --            RETURN;
 --        END;
 --END;
---
-SET SERVEROUTPUT ON;
-DECLARE
-    prod3 producto;
-BEGIN
-    prod3 := producto(101,'Sandias',10);--Este constructor a pesar de haber creado el otro sigue funcionando
-    DBMS_OUTPUT.PUT_LINE('Precio en descuento: ' || prod3.ver_precio(50));
-    DBMS_OUTPUT.PUT_LINE('Precio: ' || prod3.ver_precio());
-    prod3.cambiar_precio(20);
-    DBMS_OUTPUT.PUT_LINE('Precio en descuento: ' || prod3.ver_precio(50));
-    DBMS_OUTPUT.PUT_LINE('Precio: ' || prod3.ver_precio());
-END;
