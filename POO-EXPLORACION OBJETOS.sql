@@ -1,0 +1,22 @@
+--Explorar objetos
+--Con DESC obtenemos la informacion de las tablas (como lo haciamos antes) y los objetos
+--DESC producto;
+--Seleccionar tipos creados en SQL
+--SELECT * FROM user_types;
+--Para ver el codigo fuente
+--SELECT * FROM user_source;
+SELECT * FROM user_source; WHERE name='PRODUCTO';
+SELECT text FROM user_source; WHERE name='PRODUCTO';
+--SET SERVEROUTPUT ON;
+--DECLARE
+--    prod3 producto;
+--    prod4 producto;
+--BEGIN
+--    prod3 := producto(101,'Sandias',10);--Este constructor a pesar de haber creado el otro sigue funcionando
+--    prod4 :=´producto('Peras');
+--    DBMS_OUTPUT.PUT_LINE(prod3.ver_precio());
+--    DBMS_OUTPUT.PUT_LINE(prod4.ver_precio());
+--    prod3.cambiar_precio(20);
+--    DBMS_OUTPUT.PUT_LINE(prod3.ver_precio());
+--    producto.auditoria(); 
+--END;
