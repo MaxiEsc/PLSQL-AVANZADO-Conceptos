@@ -29,7 +29,7 @@ datos JSON
 SELECT * FROM productos;
 --Lectura recomendada para JSON
 SELECT p.datos.ciudad FROM productos p;
---Ejemplo 3 con JSON y arreglos de JSON
+--Ejemplo 3 con JSON y listas de JSON
 INSERT INTO productos VALUES (1, 'Ejemplo 2', '{"pais":"Colombia",
                                                 "ciudad":"Bogota",
                                                 "poblacion":"6000000",
