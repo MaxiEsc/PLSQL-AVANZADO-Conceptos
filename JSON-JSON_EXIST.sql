@@ -1,0 +1,105 @@
+--JSON EXIST(campo_json.expresion_json-on_error);
+--Esta expresion denota si en un campo json,se encuentra una expresion que coloquemos, en otras palabras 
+--buscamos una determinada expresion dentro del documento en el mismo formato 
+--Esta funcion distingue entre que el dato sea JSON y sea NULO
+--Es el famoso exist
+/*
+   JSON_EXISTS(campo_json,expresion_json,on_error);
+*/
+--
+--drop table productos1;
+--
+--CREATE TABLE productos1 (
+--  codigo INT,
+--  nombre VARCHAR2(200),
+--  datos json
+--);
+--
+--insert into productos1
+--values ( 1,'ejemplo1',
+--'
+--  {
+--    "pais": "Argentina",
+--    "ciudad": "Buenos aires",
+--    "poblacion": 1000000
+--  }
+--');
+--
+--
+--
+--insert into productos1
+--values ( 2,'ejemplo2',
+--'
+--  {
+--    "pais": "Argentina",
+--    "ciudad": "Buenos aires",
+--    "poblacion": 1000000,
+--    "direccion":{
+--             "calle": "xcxxxxx",
+--             "piso": 5,
+--             "puerta": "c"
+--             }
+--  }
+--');
+--
+--
+--insert into productos1
+--values ( 3,'ejemplo3',
+--'
+--  {
+--    "pais": "Colombia",
+--    "ciudad": "Bogota",
+--    "poblacion": 1500000,
+--    "direccion":{
+--             "calle": "calle primera",
+--             "piso": 5,
+--             "puerta": "c"
+--             },
+--    "telefonos": [
+--        "111-111111",
+--        "222-222222"
+--    ]
+--  }
+--');
+--
+--
+--insert into productos1
+--values ( 4,'ejemplo4',
+--'
+--  {
+--    "pais": "Perú",
+--    "ciudad": "Lima",
+--    "poblacion": 1400000,
+--    "direccion":{
+--             "calle": "calle segunda",
+--             "piso": 4,
+--             "puerta": ""
+--             },
+--    "telefonos": [
+--        "111-111111AA",
+--        "222-222222BB"
+--    ]
+--  }
+--');
+--
+--
+--insert into productos1
+--values ( 5,'ejemplo5',
+--'
+--  {
+--    "pais": "Mexico",
+--    "ciudad": "Monerrey",
+--    "poblacion": 10009000
+--  }
+--');
+--Vemos los filas ingresadas
+SELECT datos FROM productos1;
+--Analizamos $ es un prefijo
+--Con esta consulta buscaremos con la ayuda de un prefijo aquellos registros que tengan una cuidad
+SELECT prod.datos FROM productos1 prod WHERE JSON_EXISTS(prod.datos,'$.ciudad');
+--Con esta consulta buscaremos con la ayuda de un prefijo aquellos registros que tengan una direccion
+SELECT prod.datos FROM productos1 prod WHERE JSON_EXISTS(prod.datos,'$.direccion');
+--Con esta consulta buscaremos con la ayuda de un prefijo aquellos registros que tengan una direccion y calle
+SELECT prod.datos FROM productos1 prod WHERE JSON_EXISTS(prod.datos,'$.direccion.calle');
+--Con esta consulta buscaremos con la ayuda de un prefijo aquellos registros que tengan una telefono
+SELECT prod.datos FROM productos1 prod WHERE JSON_EXISTS(prod.datos,'$.telefonos[0]');
